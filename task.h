@@ -3,8 +3,8 @@
 #include <stdlib.h>
 
 typedef enum {
-	GOAL,
-	TASK,
+	URGENT,
+	NOTURGENT,
 } TaskType;
 
 typedef enum {
@@ -15,6 +15,7 @@ typedef enum {
 
 typedef struct {
 	char* name;
+	char* desc;
 	TaskType tasktype;
 	TaskStatus taskstat;
 } Task;
@@ -25,17 +26,21 @@ typedef struct {
 	size_t used;
 } TaskArr;
 
-typedef struct {
-	char* name;
-	char* desc;
-	TaskArr tasks;	
-} TaskFolder;
+typedef struct TaskFolder TaskFolder;
 
 typedef struct {
 	TaskFolder* arr;
 	size_t size;
 	size_t used;
 } TaskfArr;
+
+struct TaskFolder{
+	char* name;
+	char* desc;
+	TaskArr tasks;
+
+	TaskfArr subfolders;
+};
 
 void task_arr_init(TaskArr* ta);
 void task_arr_push(TaskArr* ta, Task i);
@@ -45,5 +50,7 @@ void taskf_arr_init(TaskfArr* ta);
 void taskf_arr_push(TaskfArr* ta, TaskFolder i);
 void taskf_arr_free(TaskfArr* ta);
 
-void task_new_folder(TaskFolder* tf, char* name);
+void task_print(Task t);
+
+void task_new_folder(TaskFolder* tf, char* name, char* desc);
 

@@ -41,6 +41,10 @@ void taskf_arr_free(TaskfArr* ta) {
 	ta->used = ta->size = 0;
 }
 
+void task_print(Task a) {
+	printf("[%s]\n\t%s\n", a.name, a.desc);
+}
+
 void task_new_folder(TaskFolder* tf, char* name, char* desc) {
 	task_arr_init(&tf->tasks);
 	tf->name = name;
